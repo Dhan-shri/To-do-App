@@ -4,11 +4,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+        <variable
+            name="myViewModel"
+            type="com.example.to_doapp.db.TaskViewModel" />
+    </data>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:orientation="vertical"
         android:layout_margin="5dp"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         tools:context=".MainActivity">
         <LinearLayout
             android:layout_width="match_parent"
@@ -21,12 +27,14 @@
                 android:id="@+id/todoText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:ems="10"
                 android:layout_margin="3dp"
+                android:layout_weight="1"
+                android:autofillHints=""
+                android:ems="10"
                 android:hint="@string/add_to_task"
                 android:inputType="textPersonName"
-                android:autofillHints="" />
+                android:text="@={myViewModel.inputTaskText}"
+                tools:ignore="TouchTargetSizeCheck" />
 
             <Button
                 android:id="@+id/btnAdd"
@@ -39,10 +47,11 @@
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/taskRecyclerView"
+            android:id="@+id/task_RecyclerView"
             android:layout_width="match_parent"
             android:layout_marginTop="25dp"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            tools:listitem="@layout/item_task"/>
     </LinearLayout>
 
 </layout>

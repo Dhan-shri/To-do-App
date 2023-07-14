@@ -1,5 +1,6 @@
 package com.example.to_doapp.db
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -13,13 +14,17 @@ class TaskViewModel(private val repo: TaskRepo) : ViewModel() {
 
     val inputTaskText = MutableLiveData<String>()
     private val statusMessage = MutableLiveData<Event<String>>()
+    val message : LiveData<Event<String>>
+        get() = statusMessage
 
     fun addTask() { // add only for now
-        if (inputTaskText.value == null) {
+        if (inputTaskText.value.isNullOrEmpty()) {
             statusMessage.value = Event("Please enter user's Name")
         } else {
             val taskText = inputTaskText.value!!
             insertTask(Task(0,taskText))
+
+            inputTaskText.value = ""
         }
     }
 
