@@ -1,5 +1,7 @@
 package com.example.to_doapp.db
 
+import android.text.SpannableString
+import android.text.style.StrikethroughSpan
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -43,7 +45,16 @@ class TaskViewModel(private val repo: TaskRepo) : ViewModel() {
 
     fun deleteTask(task: Task){
         viewModelScope.launch(Dispatchers.IO) {
-            val task = repo.deleteTask(task)
+            repo.deleteTask(task)
+        }
+    }
+
+    fun markAsComplete(task: Task){
+        viewModelScope.launch {
+            val taskName = task.taskText
+
+            val spannableString = SpannableString(taskName)
+            spannableString.setSpan(StrikethroughSpan(), 0, spannableString.length, SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE)
         }
     }
 

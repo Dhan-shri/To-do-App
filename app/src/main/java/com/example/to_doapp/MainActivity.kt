@@ -2,6 +2,8 @@ package com.example.to_doapp
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.SpannableString
+import android.text.style.StrikethroughSpan
 import android.util.Log
 import android.view.Gravity
 import android.view.View
@@ -88,9 +90,11 @@ class MainActivity : AppCompatActivity() {
                 when(item.itemId){
                     R.id.delete -> {
                         Toast.makeText(applicationContext, "Selected name is", Toast.LENGTH_LONG).show()
+                        viewModel.deleteTask(task)
                     }
                     R.id.markAsCompleted -> {
-
+                        val spannableString = SpannableString(task.taskText)
+                        spannableString.setSpan(StrikethroughSpan(), 0, spannableString.length, SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE)
                     }
             }
             true
